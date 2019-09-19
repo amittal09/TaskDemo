@@ -19,10 +19,10 @@ namespace TaskDemo
                 throw new ArgumentNullException(nameof(factory));
             object obj1;
             T obj2;
-            if (this._extensions.TryGetValue(typeof(T), out obj1))
+            if (_extensions.TryGetValue(typeof(T), out obj1))
                 obj2 = (T)obj1;
             else
-                this._extensions[typeof(T)] = (object)(obj2 = factory());
+                _extensions[typeof(T)] = obj2 = factory();
             return obj2;
         }
 
@@ -33,12 +33,12 @@ namespace TaskDemo
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator)this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public IEnumerator<object> GetEnumerator()
         {
-            return (IEnumerator<object>)this._extensions.Values.GetEnumerator();
+            return _extensions.Values.GetEnumerator();
         }
     }
 }

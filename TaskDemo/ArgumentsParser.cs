@@ -10,22 +10,22 @@ namespace TaskDemo
         {
             if (arguments == null)
                 throw new ArgumentNullException(nameof(arguments));
-            string command = ((IEnumerable<string>)arguments).FirstOrDefault<string>() ?? string.Empty;
+            string command = ((IEnumerable<string>)arguments).FirstOrDefault() ?? string.Empty;
             if (command.TrimStart().StartsWith("-"))
                 command = string.Empty;
-            List<KeyValuePair<string, string>> keyValuePairList1 = new List<KeyValuePair<string, string>>();
-            List<KeyValuePair<string, string>> keyValuePairList2 = new List<KeyValuePair<string, string>>();
-            Queue<string> remaining = new Queue<string>(((IEnumerable<string>)arguments).Skip<string>(string.IsNullOrWhiteSpace(command) ? 0 : 1));
+            var keyValuePairList1 = new List<KeyValuePair<string, string>>();
+            var keyValuePairList2 = new List<KeyValuePair<string, string>>();
+            var remaining = new Queue<string>(((IEnumerable<string>)arguments).Skip(string.IsNullOrWhiteSpace(command) ? 0 : 1));
             while (remaining.Count > 0)
             {
                 string key = remaining.Dequeue();
                 if (key.StartsWith("-"))
                 {
                     if (key.Length > 1)
-                        keyValuePairList1.Add(ArgumentsParser.Map(key.Substring(1), remaining));
+                        keyValuePairList1.Add(Map(key.Substring(1), remaining));
                 }
                 else
-                    keyValuePairList2.Add(ArgumentsParser.Map(key, remaining));
+                    keyValuePairList2.Add(Map(key, remaining));
             }
             return new HostArguments(command, keyValuePairList1.ToArray(), keyValuePairList2.ToArray());
         }

@@ -29,12 +29,12 @@ namespace TaskDemo
             if (arguments == null)
                 throw new ArgumentNullException(nameof(arguments));
             List<string> output = new List<string>();
-            Action<string> message1 = (Action<string>)(message =>
+            Action<string> message1 = message =>
             {
                 message = string.Format("[{0:HH:mm:ss}] {1}", (object)Time.Now, (object)message);
                 this._outputter.WriteLine(message);
                 output.Add(message);
-            });
+            };
 
             TWorkItem workItem;
             try

@@ -40,9 +40,9 @@ namespace TaskDemo
             TaskConfiguration<TWorkItem> taskConfiguration = new TaskConfiguration<TWorkItem>(typeof(TTask));
             if (task != null)
                 task(taskConfiguration);
-            if (this._complexTasks.Contains((TaskConfiguration)taskConfiguration))
+            if (_complexTasks.Contains(taskConfiguration))
                 throw new InvalidOperationException(string.Format("Task '{0}' has already been added.", (object)taskConfiguration.Task.FullName));
-            this._complexTasks.Add((TaskConfiguration)taskConfiguration);
+            _complexTasks.Add(taskConfiguration);
             return this;
         }
 
